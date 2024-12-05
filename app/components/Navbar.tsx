@@ -6,29 +6,18 @@ import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 import { usePathname } from "next/navigation";
 import ThemeSwitcher from "./ThemeSwitcher";
-
-const labels = [
-  {
-    label: <div>V5RC</div>,
-    value: "v5rc",
-  },
-  {
-    label: <div>VURC</div>,
-    value: "vurc",
-  },
-  {
-    label: <div>VIQRC</div>,
-    value: "viqrc",
-  },
-  {
-    label: <div>AI</div>,
-    value: "vairc",
-  },
-  {
-    label: <div>ADC</div>,
-    value: "adc",
-  },
-];
+import config from "../siteconfig";
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+  navigationMenuTriggerStyle,
+} from "@/components/ui/navigation-menu"
+import React from "react";
+import { cn } from "@/lib/utils";
 
 export default function Navbar() {
   const { setTheme } = useTheme();
@@ -66,19 +55,18 @@ export default function Navbar() {
 
   return (
     <div className="fixed top-0 z-50 flex w-full flex-col items-center justify-center">
-      <div
-        className="card mt-2 flex h-full w-[95%] md:w-[85%] lg:w-[50vw] py-4 items-center rounded-xl
-       border border-zinc-900 px-4 md:px-8 lg:px-12 backdrop-blur-lg transition-all duration-300
-        hover:border-zinc-700 supports-backdrop-blur:bg-background/90"
-      >
-        <div className="flex w-full items-center justify-between lg:justify-center">
-          {/* Logo */}
-          <div className="flex items-center">
-            <a
-              href="/"
-              className="mx-2 mr-6 lg:mr-12 flex items-center duration-300 hover:scale-105 hover:text-primary"
-            ></a>
-          </div>
+      <div className="card mt-2 flex h-full w-[45vw] items-center rounded-xl border border-zinc-900 px-4 md:px-8 lg:px-12 backdrop-blur-lg transition-all duration-300 hover:border-zinc-700 supports-backdrop-blur:bg-background/90">
+        <div className="flex w-full items-center justify-between">
+          {/* Logo AND HOME BUTTON */}
+          <Link href="/">
+            <Image
+              src={config.logo}
+              alt="Enginotic 6 Robotics Logo"
+              width={125}
+              height={125}
+              className="invert-0 dark:invert py-2"
+            />
+          </Link>
 
           {/* Mobile Menu Button */}
           <button
@@ -89,103 +77,122 @@ export default function Navbar() {
           </button>
 
           {/* Desktop Navigation */}
-          <nav className="hidden lg:flex justify-center space-x-12">
-            <Link
-              href="/search"
-              className="font-medium tracking-tight transition-all duration-300 hover:scale-105 hover:text-gray-500"
-            >
-              Search
-            </Link>
-            <Link
-              href="/workspace"
-              className="font-medium tracking-tight transition-all duration-300 hover:scale-105 hover:text-gray-500"
-            >
-              Workspace
-            </Link>
-            <Link
-              href="/pricing"
-              className="font-medium tracking-tight transition-all duration-300 hover:scale-105 hover:text-gray-500"
-            >
-              Pricing
-            </Link>
-            <Link
-              href="/about"
-              className="font-medium tracking-tight transition-all duration-300 hover:scale-105 hover:text-gray-500"
-            >
-              About
-            </Link>
-          </nav>
+          <NavigationMenu className="hidden lg:flex">
+            <NavigationMenuList>
+              {config.navItems.map((item) => (
+                <NavigationMenuItem key={item.path}>
+                  {item.label === 'Contact' ? (
+                    <Link href={item.path} className="navigation-menu-link text-sm px-2 hover:text-gray-500 transition-all duration-300">
+                      {item.label}
+                    </Link>
+                  ) : (
+                    <>
+                      <NavigationMenuTrigger>
+                        {item.label}
+                      </NavigationMenuTrigger>
+                      <NavigationMenuContent>
+                        <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
+                          {item.navMenuItems.map((component) => (
+                            <ListItem
+                              key={component.title}
+                              title={component.title}
+                              href={component.href}
+                            >
+                              {component.description}
+                            </ListItem>
+                          ))}
+                        </ul>
+                      </NavigationMenuContent>
+                    </>
+                  )}
+                </NavigationMenuItem>
+              ))}
+            </NavigationMenuList>
+          </NavigationMenu>
 
           {/* User Menu - Desktop */}
-          <div className="hidden lg:flex w-2/4 items-end justify-end">
-            {isDropdownOpen && (
-              <div className="absolute right-0 z-50 mt-2 flex w-48 flex-col items-center justify-center rounded-md border border-zinc-800 bg-zinc-900/90 py-1 shadow-lg backdrop-blur-lg transition-all duration-300 supports-backdrop-blur:bg-background/90">
-                <div className="flex flex-col gap-y-2 py-1 w-full">
-                  <a
-                    href="/workspace?new"
-                    className="flex items-center rounded px-4 py-2 text-sm text-gray-300 transition-colors duration-300 hover:bg-zinc-800/80"
-                  >
-                    <Plus className="mr-2 h-4 w-4" />
-                    <span>New Workspace</span>
-                  </a>
-                  <a
-                    href="/settings"
-                    className="flex items-center rounded px-4 py-2 text-sm text-gray-300 transition-colors duration-300 hover:bg-zinc-800/80"
-                  >
-                    <Settings className="mr-2 h-4 w-4" />
-                    <span>Settings</span>
-                  </a>
-                  <div className="my-1 h-px bg-zinc-800"></div>
-                  <a
-                    href="/logout"
-                    className="flex items-center rounded px-4 py-2 text-sm text-red-400 transition-colors duration-300 hover:bg-zinc-800/80"
-                  >
-                    <LogOut className="mr-2 h-4 w-4" />
-                    <span>Log out</span>
-                  </a>
-                </div>
-              </div>
-            )}
-          </div>
-        </div>
+          <div className="hidden lg:flex items-center gap-4">
+            <ThemeSwitcher />
 
-        {/* Theme Switcher */}
-        <div className="hidden lg:block">
-          <ThemeSwitcher />
+            <NavigationMenu>
+              <NavigationMenuList>
+                <NavigationMenuItem>
+                  {isDropdownOpen && (
+                    <NavigationMenuContent>
+                      <ul className="w-48 p-2">
+                        <li>
+                          <Link href="/workspace?new" className="flex items-center px-4 py-2 text-sm hover:bg-accent rounded-md">
+                            <Plus className="mr-2 h-4 w-4" />
+                            <span>New Workspace</span>
+                          </Link>
+                        </li>
+                        <li>
+                          <Link href="/settings" className="flex items-center px-4 py-2 text-sm hover:bg-accent rounded-md">
+                            <Settings className="mr-2 h-4 w-4" />
+                            <span>Settings</span>
+                          </Link>
+                        </li>
+                        <li className="my-1 h-px bg-border" />
+                        <li>
+                          <Link href="/logout" className="flex items-center px-4 py-2 text-sm text-red-500 hover:bg-accent rounded-md">
+                            <LogOut className="mr-2 h-4 w-4" />
+                            <span>Log out</span>
+                          </Link>
+                        </li>
+                      </ul>
+                    </NavigationMenuContent>
+                  )}
+                </NavigationMenuItem>
+              </NavigationMenuList>
+            </NavigationMenu>
+          </div>
         </div>
       </div>
 
       {/* Mobile Menu */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden absolute top-full left-0 w-full mt-2 bg-zinc-900/90 backdrop-blur-lg border border-zinc-800 rounded-b-xl">
+        <div className="lg:hidden absolute top-full left-0 w-full mt-2 bg-background/95 backdrop-blur-lg border border-border rounded-b-xl">
           <nav className="flex flex-col p-4 space-y-4">
-            <Link
-              href="/search"
-              className="font-medium tracking-tight transition-all duration-300 hover:text-gray-500"
-            >
-              Search
-            </Link>
-            <Link
-              href="/workspace"
-              className="font-medium tracking-tight transition-all duration-300 hover:text-gray-500"
-            >
-              Workspace
-            </Link>
-            <Link
-              href="/pricing"
-              className="font-medium tracking-tight transition-all duration-300 hover:text-gray-500"
-            >
-              Pricing
-            </Link>
-            <Link
-              href="/about"
-              className="font-medium tracking-tight transition-all duration-300 hover:text-gray-500"
-            >
-              About
-            </Link>
+            {config.navItems.map((item) => (
+              <Link
+                key={item.path}
+                href={item.path}
+                className="font-medium tracking-tight transition-colors hover:text-muted-foreground"
+              >
+                {item.label}
+              </Link>
+            ))}
+            <div className="flex items-center justify-between pt-4 border-t border-border">
+              <ThemeSwitcher />
+            </div>
           </nav>
         </div>
       )}
     </div>
   );
 }
+const ListItem = React.forwardRef<
+  React.ElementRef<"a">,
+  React.ComponentPropsWithoutRef<"a">
+>(({ className, title, children, ...props }, ref) => {
+  return (
+    <li>
+      <NavigationMenuLink asChild>
+        <a
+          ref={ref}
+          className={cn(
+            "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+            className
+          )}
+          {...props}
+        >
+          <div className="text-sm font-medium leading-none">{title}</div>
+          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">
+            {children}
+          </p>
+        </a>
+      </NavigationMenuLink>
+    </li>
+  )
+})
+ListItem.displayName = "ListItem"

@@ -15,7 +15,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="bg-white dark:bg-black">
+    <html lang="en" className="bg-white dark:bg-black transition-colors duration-300">
       <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
         <body className="sfpro antialiased">
           <Navbar />
