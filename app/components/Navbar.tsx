@@ -18,7 +18,7 @@ import {
 } from "@/components/ui/navigation-menu"
 import React from "react";
 import { cn } from "@/lib/utils";
-
+import { motion } from "framer-motion";
 export default function Navbar() {
   const { setTheme } = useTheme();
   const [reload, setReload] = useState(0);
@@ -26,21 +26,7 @@ export default function Navbar() {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [open, setOpen] = useState(false);
-
-  useEffect(() => {
-    const storedValue = localStorage.getItem("defaultTeamProgram");
-    if (storedValue) {
-      setDefaultTeam(storedValue);
-    }
-    const down = (e: KeyboardEvent) => {
-      if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
-        e.preventDefault();
-        setOpen((open) => !open);
-      }
-    };
-    document.addEventListener("keydown", down);
-    return () => document.removeEventListener("keydown", down);
-  }, [reload]);
+  const [isHovered, setIsHovered] = useState(false);
 
   const pathname = usePathname();
 
@@ -54,8 +40,14 @@ export default function Navbar() {
   }
 
   return (
-    <div className="fixed top-0 z-50 flex w-full flex-col items-center justify-center">
-      <div className="card mt-2 flex h-full w-[45vw] items-center rounded-xl border border-zinc-900 px-4 md:px-8 lg:px-12 backdrop-blur-lg transition-all duration-300 hover:border-zinc-700 supports-backdrop-blur:bg-background/90">
+    <motion.div transition={{ duration: 0.25, type: "spring", bounce: 0.25 }} className="fixed top-0 z-50 flex w-full flex-col items-center justify-center">
+      {isHovered && (
+        <motion.div className="fixed inset-0 z-40 bg-black/50" transition={{ duration: 0.25, type: "spring", bounce: 0.25 }}
+          initial={{ filter: "blur(0px)", opacity: 1 }} whileInView={{ filter: "blur(8px)", backdropFilter: "blur(25px)", opacity: 1 }}
+          exit={{ filter: "blur(0px)", backdropFilter: "blur(0px)", opacity: 0 }}
+        />
+      )}
+      <div className="card mt-2 z-50 flex h-full w-[45vw] max-sm:w-full items-center rounded-xl border border-zinc-900 px-4 md:px-8 lg:px-12 backdrop-blur-lg transition-all duration-300 hover:border-zinc-700 supports-backdrop-blur:bg-background/90">
         <div className="flex w-full items-center justify-between">
           {/* Logo AND HOME BUTTON */}
           <Link href="/">
@@ -77,20 +69,21 @@ export default function Navbar() {
           </button>
 
           {/* Desktop Navigation */}
-          <NavigationMenu className="hidden lg:flex">
+          <NavigationMenu className="hidden lg:flex" onMouseEnter={() => setIsHovered(true)} // Show blur
+            onMouseLeave={() => setIsHovered(false)} >
             <NavigationMenuList>
               {config.navItems.map((item) => (
-                <NavigationMenuItem key={item.path}>
+                <NavigationMenuItem key={item.path} >
                   {item.label === 'Contact' ? (
-                    <Link href={item.path} className="navigation-menu-link text-sm px-2 hover:text-gray-500 transition-all duration-300">
+                    <Link href={item.path} className={navigationMenuTriggerStyle()}>
                       {item.label}
                     </Link>
                   ) : (
                     <>
-                      <NavigationMenuTrigger>
+                      <NavigationMenuTrigger >
                         {item.label}
                       </NavigationMenuTrigger>
-                      <NavigationMenuContent>
+                      <NavigationMenuContent className="">
                         <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 lg:w-[600px] ">
                           {item.navMenuItems.map((component) => (
                             <ListItem
@@ -150,25 +143,27 @@ export default function Navbar() {
       </div>
 
       {/* Mobile Menu */}
-      {isMobileMenuOpen && (
-        <div className="lg:hidden absolute top-full left-0 w-full mt-2 bg-background/95 backdrop-blur-lg border border-border rounded-b-xl">
-          <nav className="flex flex-col p-4 space-y-4">
-            {config.navItems.map((item) => (
-              <Link
-                key={item.path}
-                href={item.path}
-                className="font-medium tracking-tight transition-colors hover:text-muted-foreground"
-              >
-                {item.label}
-              </Link>
-            ))}
-            <div className="flex items-center justify-between pt-4 border-t border-border">
-              <ThemeSwitcher />
-            </div>
-          </nav>
-        </div>
-      )}
-    </div>
+      {
+        isMobileMenuOpen && (
+          <div className="lg:hidden absolute top-full left-0 w-full mt-2 bg-background/95 backdrop-blur-lg border border-border rounded-b-xl">
+            <nav className="flex flex-col p-4 space-y-4">
+              {config.navItems.map((item) => (
+                <Link
+                  key={item.path}
+                  href={item.path}
+                  className="font-medium tracking-tight transition-colors hover:text-muted-foreground"
+                >
+                  {item.label}
+                </Link>
+              ))}
+              <div className="flex items-center justify-between pt-4 border-t border-border">
+                <ThemeSwitcher />
+              </div>
+            </nav>
+          </div>
+        )
+      }
+    </motion.div >
   );
 }
 const ListItem = React.forwardRef<
