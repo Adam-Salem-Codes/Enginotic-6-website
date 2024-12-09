@@ -1,3 +1,9 @@
+
+
+// README: This file contains all of the major configuration for the website
+// It does NOT contain content that is on the landing page and team pages,
+// that will most likely be hardcoded or have a seperate config file for each team.
+
 type Component = {
     title: string;
     href: string;
@@ -121,49 +127,17 @@ const config: Config = {
             ] as Component[],
         },
         {
+            label: 'Oppertunities',
+            path: '/oppertunities',
+        },
+        {
             label: 'Contact',
             path: '/contact',
-            navMenuItems: [
-                {
-                    title: "Alert Dialog",
-                    href: "/docs/primitives/alert-dialog",
-                    description:
-                        "A modal dialog that interrupts the user with important content and expects a response.",
-                },
-                {
-                    title: "Hover Card",
-                    href: "/docs/primitives/hover-card",
-                    description:
-                        "For sighted users to preview content available behind a link.",
-                },
-                {
-                    title: "Progress",
-                    href: "/docs/primitives/progress",
-                    description:
-                        "Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.",
-                },
-                {
-                    title: "Scroll-area",
-                    href: "/docs/primitives/scroll-area",
-                    description: "Visually or semantically separates content.",
-                },
-                {
-                    title: "Tabs",
-                    href: "/docs/primitives/tabs",
-                    description:
-                        "A set of layered sections of content—known as tab panels—that are displayed one at a time.",
-                },
-                {
-                    title: "Tooltip",
-                    href: "/docs/primitives/tooltip",
-                    description:
-                        "A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.",
-                },
-            ] as Component[],
-        }
+        },
+
     ] as NavItem[],
     // Branding
-    logo: '/enginotic-logo.png',
+    logo: '/enginotic-logo.svg',
     icon: '/images/favicon.ico',
 
     // Social media
@@ -182,9 +156,9 @@ const config: Config = {
 
     // SEO defaults
     defaultSeo: {
-        title: 'My Site',
+        title: 'Enginotic 6 Robotics',
         titleTemplate: '%s | My Site',
-        description: 'A description of my site',
+        description: 'The largest virginia private robotics organization.',
         openGraph: {
             type: 'website',
             locale: 'en_US',

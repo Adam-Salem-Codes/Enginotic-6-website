@@ -80,3 +80,14 @@ body {
     @apply bg-background text-foreground;
   }
 }
+.clip-diagonal-inverse {
+  clip-path: polygon(0% 0%, 100% 40%, 100% 100%, 0% 100%);
+}
+
+.clip-diagonal {
+  clip-path: polygon(0% 41%, 100% 2%, 100% 100%, 0% 100%);
+}
+
+.clip-diagonal-both {
+  clip-path: polygon(30% 0, 95% 0, 70% 100%, 5% 100%);
+}

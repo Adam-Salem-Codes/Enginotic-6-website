@@ -15,7 +15,7 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu"
+} from "@/components/ui/navigation-menu";
 import React from "react";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
@@ -40,14 +40,31 @@ export default function Navbar() {
   }
 
   return (
-    <motion.div transition={{ duration: 0.25, type: "spring", bounce: 0.25 }} className="fixed top-0 z-50 flex w-full flex-col items-center justify-center">
+    <motion.div
+      transition={{ duration: 0.25, type: "spring", bounce: 0.25 }}
+      className="fixed top-0 z-50 flex w-full flex-col items-center justify-center"
+    >
       {isHovered && (
-        <motion.div className="fixed inset-0 z-40 bg-black/50" transition={{ duration: 0.25, type: "spring", bounce: 0.25 }}
-          initial={{ filter: "blur(0px)", opacity: 1 }} whileInView={{ filter: "blur(8px)", backdropFilter: "blur(25px)", opacity: 1 }}
-          exit={{ filter: "blur(0px)", backdropFilter: "blur(0px)", opacity: 0 }}
+        <motion.div
+          className="fixed inset-0 z-40 bg-black/50"
+          transition={{ duration: 0.25, type: "spring", bounce: 0.25 }}
+          initial={{ filter: "blur(0px)", opacity: 1 }}
+          whileInView={{
+            filter: "blur(8px)",
+            backdropFilter: "blur(25px)",
+            opacity: 1,
+          }}
+          exit={{
+            filter: "blur(0px)",
+            backdropFilter: "blur(0px)",
+            opacity: 0,
+          }}
         />
       )}
-      <div className="card mt-2 z-50 flex h-full w-[45vw] max-sm:w-full items-center rounded-xl border border-zinc-900 px-4 md:px-8 lg:px-12 backdrop-blur-lg transition-all duration-300 hover:border-zinc-700 supports-backdrop-blur:bg-background/90">
+      <div
+        className="card mt-3 z-50 flex h-full w-[45vw] max-sm:w-full items-center rounded-2xl border border-zinc-900 px-4 
+       sm:px-8 md:px-8 lg:px-12 backdrop-blur-lg transition-all duration-300 hover:border-zinc-700 supports-backdrop-blur:bg-background/90"
+      >
         <div className="flex w-full items-center justify-between">
           {/* Logo AND HOME BUTTON */}
           <Link href="/">
@@ -69,18 +86,27 @@ export default function Navbar() {
           </button>
 
           {/* Desktop Navigation */}
-          <NavigationMenu className="hidden lg:flex" onMouseEnter={() => setIsHovered(true)} // Show blur
-            onMouseLeave={() => setIsHovered(false)} >
+          <NavigationMenu
+            className="hidden lg:flex"
+            onMouseEnter={() => setIsHovered(true)} // Show blur
+            onMouseLeave={() => setIsHovered(false)}
+          >
             <NavigationMenuList>
               {config.navItems.map((item) => (
-                <NavigationMenuItem key={item.path} >
-                  {item.label === 'Contact' ? (
-                    <Link href={item.path} className={navigationMenuTriggerStyle()}>
+                <NavigationMenuItem key={item.path}>
+                  {item.label === "Contact" ||
+                  item.label === "Oppertunities" ? (
+                    <Link
+                      href={item.path}
+                      className={
+                        navigationMenuTriggerStyle() + " bg-transparent"
+                      }
+                    >
                       {item.label}
                     </Link>
                   ) : (
                     <>
-                      <NavigationMenuTrigger >
+                      <NavigationMenuTrigger className="bg-transparent">
                         {item.label}
                       </NavigationMenuTrigger>
                       <NavigationMenuContent className="">
@@ -114,20 +140,29 @@ export default function Navbar() {
                     <NavigationMenuContent>
                       <ul className="w-48 p-2">
                         <li>
-                          <Link href="/workspace?new" className="flex items-center px-4 py-2 text-sm hover:bg-accent rounded-md">
+                          <Link
+                            href="/workspace?new"
+                            className="flex items-center px-4 py-2 text-sm hover:bg-accent rounded-md"
+                          >
                             <Plus className="mr-2 h-4 w-4" />
                             <span>New Workspace</span>
                           </Link>
                         </li>
                         <li>
-                          <Link href="/settings" className="flex items-center px-4 py-2 text-sm hover:bg-accent rounded-md">
+                          <Link
+                            href="/settings"
+                            className="flex items-center px-4 py-2 text-sm hover:bg-accent rounded-md"
+                          >
                             <Settings className="mr-2 h-4 w-4" />
                             <span>Settings</span>
                           </Link>
                         </li>
                         <li className="my-1 h-px bg-border" />
                         <li>
-                          <Link href="/logout" className="flex items-center px-4 py-2 text-sm text-red-500 hover:bg-accent rounded-md">
+                          <Link
+                            href="/logout"
+                            className="flex items-center px-4 py-2 text-sm text-red-500 hover:bg-accent rounded-md"
+                          >
                             <LogOut className="mr-2 h-4 w-4" />
                             <span>Log out</span>
                           </Link>
@@ -143,27 +178,25 @@ export default function Navbar() {
       </div>
 
       {/* Mobile Menu */}
-      {
-        isMobileMenuOpen && (
-          <div className="lg:hidden absolute top-full left-0 w-full mt-2 bg-background/95 backdrop-blur-lg border border-border rounded-b-xl">
-            <nav className="flex flex-col p-4 space-y-4">
-              {config.navItems.map((item) => (
-                <Link
-                  key={item.path}
-                  href={item.path}
-                  className="font-medium tracking-tight transition-colors hover:text-muted-foreground"
-                >
-                  {item.label}
-                </Link>
-              ))}
-              <div className="flex items-center justify-between pt-4 border-t border-border">
-                <ThemeSwitcher />
-              </div>
-            </nav>
-          </div>
-        )
-      }
-    </motion.div >
+      {isMobileMenuOpen && (
+        <div className="lg:hidden absolute top-full left-0 w-full mt-2 bg-background/95 backdrop-blur-lg border border-border rounded-b-xl">
+          <nav className="flex flex-col p-4 space-y-4">
+            {config.navItems.map((item) => (
+              <Link
+                key={item.path}
+                href={item.path}
+                className="font-medium tracking-tight transition-colors hover:text-muted-foreground"
+              >
+                {item.label}
+              </Link>
+            ))}
+            <div className="flex items-center justify-between pt-4 border-t border-border">
+              <ThemeSwitcher />
+            </div>
+          </nav>
+        </div>
+      )}
+    </motion.div>
   );
 }
 const ListItem = React.forwardRef<
@@ -188,6 +221,6 @@ const ListItem = React.forwardRef<
         </a>
       </NavigationMenuLink>
     </li>
-  )
-})
-ListItem.displayName = "ListItem"
+  );
+});
+ListItem.displayName = "ListItem";
