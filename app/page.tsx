@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import cloudAresRobots from "@/public/cloud_ares_robots.jpg";
 import cloudTeam from "@/public/cloud_team.jpg";
-import { useState } from "react";
 import { motion } from "framer-motion";
 import { SingleCard } from "./components/LinearCard";
 import { FlipWords } from "@/components/ui/flip-words";
