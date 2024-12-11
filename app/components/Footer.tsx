@@ -15,7 +15,7 @@ export default function Footer() {
               Enginotic 6 Robotics
             </Link>
             <p className="text-sm text-muted-foreground">
-              The future of Virginia's Robotics is here.
+              The future of Virginia&apos;s Robotics is here.
             </p>
           </div>
           <div>

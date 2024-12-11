@@ -1,9 +1,8 @@
 "use client";
-import { ChevronDown, LogOut, Plus, Settings, Menu } from "lucide-react";
+import { LogOut, Plus, Settings, Menu } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useState } from "react";
-import { useTheme } from "next-themes";
+import { useState } from "react";
 import { usePathname } from "next/navigation";
 import ThemeSwitcher from "./ThemeSwitcher";
 import config from "../siteconfig";
@@ -19,13 +18,10 @@ import {
 import React from "react";
 import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
+
 export default function Navbar() {
-  const { setTheme } = useTheme();
-  const [reload, setReload] = useState(0);
-  const [defaultTeam, setDefaultTeam] = useState("v5rc");
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [open, setOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
   const pathname = usePathname();

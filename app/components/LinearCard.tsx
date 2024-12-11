@@ -5,13 +5,6 @@ import { X } from "lucide-react";
 import Image, { ImageProps, StaticImageData } from "next/image";
 import { cn } from "@/lib/utils";
 
-type CardType = {
-  src: string;
-  title: string;
-  category: string;
-  content: React.ReactNode;
-};
-
 interface SingleCardProps {
   src: StaticImageData;
   title: string;

@@ -4,15 +4,9 @@ import { MoonIcon, SunIcon } from "lucide-react";
 import * as Switch from "@radix-ui/react-switch";
 import { useTheme } from "next-themes";
 
-interface Document {
-  startViewTransition?: (callback: () => void) => {
-    ready: Promise<void>;
-  };
-}
-
 export default function ThemeSwitcher() {
   const ref = useRef<HTMLSpanElement>(null);
-  const { theme, setTheme, resolvedTheme } = useTheme(); // Use `resolvedTheme` for the current theme
+  const { setTheme, resolvedTheme } = useTheme(); // Use `resolvedTheme` for the current theme
 
   const toggleDarkMode = async (isDarkMode: boolean) => {
     /**

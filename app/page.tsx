@@ -1,8 +1,4 @@
 "use client";
-import GradualSpacing from "@/components/ui/gradual-spacing";
-import Image from "next/image";
-
-import config from "./siteconfig";
 import BlurFade from "@/components/ui/blur-fade";
 import cloudAres from "@/public/cloud_ares.jpg";
 import AnimatedGridPattern from "@/components/ui/animated-grid-pattern";
@@ -10,16 +6,12 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import cloudAresRobots from "@/public/cloud_ares_robots.jpg";
-import stratusQuo from "@/public/stratusquo.jpeg";
 import cloudTeam from "@/public/cloud_team.jpg";
-import { useState, useEffect, useRef } from "react";
-import { AnimatePresence, motion } from "framer-motion";
-import { FeatureSection } from "./components/FeatureSection";
+import { useState } from "react";
+import { motion } from "framer-motion";
 import { SingleCard } from "./components/LinearCard";
 import { FlipWords } from "@/components/ui/flip-words";
-import EnginoticLogo from "@/public/enginotic-logo-small.svg";
 import NumberTicker from "@/components/ui/number-ticker";
-import Google from "@/public/google.jpg";
 import Globe from "@/components/ui/globe";
 import Virginia from "./components/Virginia";
 
