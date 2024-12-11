@@ -2,7 +2,7 @@ import { GoProject } from "react-icons/go";
 import { BsPeople } from "react-icons/bs";
 import { AiOutlineFundProjectionScreen } from "react-icons/ai";
 import { IoStatsChartOutline } from "react-icons/io5";
-import { FeatureCard } from "./FeatureCard";
+import FeatureCard from "./FeatureCard";
 
 const features = [
   {

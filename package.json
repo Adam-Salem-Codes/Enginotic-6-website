@@ -11,8 +11,10 @@
   "dependencies": {
     "@radix-ui/react-navigation-menu": "^1.2.1",
     "@radix-ui/react-slot": "^1.1.0",
+    "@svgr/webpack": "^8.1.0",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "cobe": "^0.6.3",
     "dotted-map": "^2.2.3",
     "framer-motion": "^11.13.1",
     "gsap": "^3.12.5",
@@ -25,6 +27,7 @@
     "react": "^18",
     "react-dom": "^18",
     "react-icons": "^5.4.0",
+    "react-spring": "^9.7.5",
     "tailwind-merge": "^2.5.5",
     "tailwindcss-animate": "^1.0.7"
   },

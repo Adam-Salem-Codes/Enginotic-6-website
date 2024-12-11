@@ -2,7 +2,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
-import Image, { ImageProps } from "next/image";
+import Image, { ImageProps, StaticImageData } from "next/image";
 import { cn } from "@/lib/utils";
 
 type CardType = {
@@ -13,7 +13,7 @@ type CardType = {
 };
 
 interface SingleCardProps {
-  src: string;
+  src: StaticImageData;
   title: string;
   category: string;
   content: React.ReactNode;
