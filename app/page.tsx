@@ -15,30 +15,9 @@ import NumberTicker from "@/components/ui/number-ticker";
 import Globe from "@/components/ui/globe";
 import Virginia from "./components/Virginia";
 
-const variants = {
-  initial: (direction: number) => ({
-    opacity: 0,
-    x: direction > 0 ? 100 : -100,
-    filter: "blur(10px)",
-  }),
-  animate: { opacity: 1, x: 0, filter: "blur(0px)" },
-  exit: (direction: number) => ({
-    opacity: 0,
-    x: direction > 0 ? -100 : 100,
-    filter: "blur(10px)",
-    position: "absolute",
-  }),
-};
-
 export default function Home() {
   const router = useRouter();
   const [currentTab, setCurrentTab] = useState(0);
-  const [direction, setDirection] = useState(1); // 1 for forward, -1 for backward
-  const steps = [0, 1, 2, 3]; // Define the number of steps (screens)
-  const changeTab = (newTab: number) => {
-    setDirection(newTab > currentTab ? 1 : -1);
-    setCurrentTab(newTab);
-  };
 
   return (
     <main className="w-full min-h-screen dark:bg-gradient-to-b from-background via-[#141414] to-background overflow-x-hidden relative">

@@ -20,7 +20,6 @@ import { cn } from "@/lib/utils";
 import { motion } from "framer-motion";
 
 export default function Navbar() {
-  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isHovered, setIsHovered] = useState(false);
 
@@ -132,40 +131,38 @@ export default function Navbar() {
             <NavigationMenu>
               <NavigationMenuList>
                 <NavigationMenuItem>
-                  {isDropdownOpen && (
-                    <NavigationMenuContent>
-                      <ul className="w-48 p-2">
-                        <li>
-                          <Link
-                            href="/workspace?new"
-                            className="flex items-center px-4 py-2 text-sm hover:bg-accent rounded-md"
-                          >
-                            <Plus className="mr-2 h-4 w-4" />
-                            <span>New Workspace</span>
-                          </Link>
-                        </li>
-                        <li>
-                          <Link
-                            href="/settings"
-                            className="flex items-center px-4 py-2 text-sm hover:bg-accent rounded-md"
-                          >
-                            <Settings className="mr-2 h-4 w-4" />
-                            <span>Settings</span>
-                          </Link>
-                        </li>
-                        <li className="my-1 h-px bg-border" />
-                        <li>
-                          <Link
-                            href="/logout"
-                            className="flex items-center px-4 py-2 text-sm text-red-500 hover:bg-accent rounded-md"
-                          >
-                            <LogOut className="mr-2 h-4 w-4" />
-                            <span>Log out</span>
-                          </Link>
-                        </li>
-                      </ul>
-                    </NavigationMenuContent>
-                  )}
+                  <NavigationMenuContent>
+                    <ul className="w-48 p-2">
+                      <li>
+                        <Link
+                          href="/workspace?new"
+                          className="flex items-center px-4 py-2 text-sm hover:bg-accent rounded-md"
+                        >
+                          <Plus className="mr-2 h-4 w-4" />
+                          <span>New Workspace</span>
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          href="/settings"
+                          className="flex items-center px-4 py-2 text-sm hover:bg-accent rounded-md"
+                        >
+                          <Settings className="mr-2 h-4 w-4" />
+                          <span>Settings</span>
+                        </Link>
+                      </li>
+                      <li className="my-1 h-px bg-border" />
+                      <li>
+                        <Link
+                          href="/logout"
+                          className="flex items-center px-4 py-2 text-sm text-red-500 hover:bg-accent rounded-md"
+                        >
+                          <LogOut className="mr-2 h-4 w-4" />
+                          <span>Log out</span>
+                        </Link>
+                      </li>
+                    </ul>
+                  </NavigationMenuContent>
                 </NavigationMenuItem>
               </NavigationMenuList>
             </NavigationMenu>
