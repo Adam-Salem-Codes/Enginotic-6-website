@@ -17,8 +17,6 @@ import Virginia from "./components/Virginia";
 
 export default function Home() {
   const router = useRouter();
-  const [currentTab, setCurrentTab] = useState(0);
-
   return (
     <main className="w-full min-h-screen dark:bg-gradient-to-b from-background via-[#141414] to-background overflow-x-hidden relative">
       {/* Hero Section */}

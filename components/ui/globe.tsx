@@ -63,12 +63,7 @@ export default function Globe({
   };
 
   const onRender = useCallback(
-    (state: {
-      phi: number;
-      width: number;
-      height: number;
-      [key: string]: number;
-    }) => {
+    (state: Record<string, number>) => {
       if (!pointerInteracting.current) phi += 0.005;
       state.phi = phi + r;
       state.width = width * 2;
@@ -91,7 +86,7 @@ export default function Globe({
       ...config,
       width: width * 2,
       height: width * 2,
-      onRender: onRender as any,
+      onRender,
     });
 
     setTimeout(() => (canvasRef.current!.style.opacity = "1"));
